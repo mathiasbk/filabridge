@@ -598,7 +598,6 @@ func (ws *WebServer) updateConfigHandler(c *gin.Context) {
 
 	// Update each config value
 	for key, value := range config {
-		fmt.Print("test: " + value)
 		//Remoive trailing slash /
 		value = strings.TrimSuffix(value, "/")
 		if err := ws.bridge.SetConfigValue(key, value); err != nil {
