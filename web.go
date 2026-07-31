@@ -598,8 +598,12 @@ func (ws *WebServer) updateConfigHandler(c *gin.Context) {
 
 	// Update each config value
 	for key, value := range config {
-		//Remoive trailing slash /
-		value = strings.TrimSuffix(value, "/")
+
+		//Remoive trailing slash from url/
+		if key == "spoolman_url" {
+			value = strings.TrimSuffix(value, "/")
+		}
+
 		if err := ws.bridge.SetConfigValue(key, value); err != nil {
 			c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
 			return
