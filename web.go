@@ -808,6 +808,7 @@ func (ws *WebServer) updatePrinterHandler(c *gin.Context) {
 	}
 
 	// Save the updated printer configuration
+	fmt.Print(printerConfig)
 	if err := ws.bridge.SavePrinterConfig(printerID, printerConfig); err != nil {
 		c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
 		return
