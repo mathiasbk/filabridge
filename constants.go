@@ -20,18 +20,18 @@ const (
 
 // Database configuration keys
 const (
-	ConfigKeyPrinterIPs                   = "printer_ips"
-	ConfigKeyAPIKey                       = "prusalink_api_key"
-	ConfigKeySpoolmanURL                  = "spoolman_url"
-	ConfigKeyPollInterval                 = "poll_interval"
-	ConfigKeyLocationSyncInterval         = "location_sync_interval"
-	ConfigKeyWebPort                      = "web_port"
-	ConfigKeyPrusaLinkTimeout             = "prusalink_timeout"
-	ConfigKeyPrusaLinkFileDownloadTimeout = "prusalink_file_download_timeout"
-	ConfigKeySpoolmanTimeout              = "spoolman_timeout"
-	ConfigKeySpoolmanUsername             = "spoolman_username"
-	ConfigKeySpoolmanPassword             = "spoolman_password"
-	ConfigKeyAutoAssignPreviousSpoolEnabled = "auto_assign_previous_spool_enabled"
+	ConfigKeyPrinterIPs                      = "printer_ips"
+	ConfigKeyAPIKey                          = "prusalink_api_key"
+	ConfigKeySpoolmanURL                     = "spoolman_url"
+	ConfigKeyPollInterval                    = "poll_interval"
+	ConfigKeyLocationSyncInterval            = "location_sync_interval"
+	ConfigKeyWebPort                         = "web_port"
+	ConfigKeyPrusaLinkTimeout                = "prusalink_timeout"
+	ConfigKeyPrusaLinkFileDownloadTimeout    = "prusalink_file_download_timeout"
+	ConfigKeySpoolmanTimeout                 = "spoolman_timeout"
+	ConfigKeySpoolmanUsername                = "spoolman_username"
+	ConfigKeySpoolmanPassword                = "spoolman_password"
+	ConfigKeyAutoAssignPreviousSpoolEnabled  = "auto_assign_previous_spool_enabled"
 	ConfigKeyAutoAssignPreviousSpoolLocation = "auto_assign_previous_spool_location"
 )
 
@@ -44,19 +44,23 @@ const (
 
 // Printer model detection patterns
 const (
-	ModelCorePattern = "core"
-	ModelXLPattern   = "xl"
-	ModelMK4Pattern  = "mk4"
-	ModelMK3Pattern  = "mk3"
-	ModelMiniPattern = "mini"
+	ModelCoreOneIndx4TPattern = "Core One Indx 4T"
+	ModelCoreOneIndx8TPattern = "Core One Indx 8T"
+	ModelCorePattern          = "core"
+	ModelXLPattern            = "xl"
+	ModelMK4Pattern           = "mk4"
+	ModelMK3Pattern           = "mk3"
+	ModelMiniPattern          = "mini"
 )
 
 // Printer model names
 const (
-	ModelCoreOne  = "CORE One"
-	ModelXL       = "XL"
-	ModelMK4      = "MK4"
-	ModelMK35     = "MK3.5"
-	ModelMiniPlus = "MINI+"
-	ModelUnknown  = "Unknown"
+	ModelCoreOneIndx4T = "Core One Indx 4T"
+	ModelCoreOneIndx8T = "Core One Indx 8T"
+	ModelCoreOne       = "CORE One"
+	ModelXL            = "XL"
+	ModelMK4           = "MK4"
+	ModelMK35          = "MK3.5"
+	ModelMiniPlus      = "MINI+"
+	ModelUnknown       = "Unknown"
 )
