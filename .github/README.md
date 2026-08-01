@@ -1,7 +1,5 @@
 # FilaBridge
 
-**UPDATE: DEVELOPMENT IS PERMANENTLY HALTED AFTER PRUSA STOLE THOUSANDS OF DOLLARS FROM ME AND OVER SIX MONTHS OF MY LIFE DUE TO THEIR SHITTY SUPPORT AND NOT ABLE TO MAKE WORKING PRINTERS.**
-
 [![License: GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0)
 [![Go Version](https://img.shields.io/badge/Go-1.23-00ADD8?logo=go)](https://golang.org/)
 [![GitHub release](https://img.shields.io/github/v/release/needo37/filabridge)](https://github.com/needo37/filabridge/releases)
