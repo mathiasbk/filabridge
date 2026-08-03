@@ -44,6 +44,21 @@ type Config struct {
 	Printers                     map[string]PrinterConfig // Key is printer ID, value is printer config
 }
 
+type LogItem struct {
+	ID            int       `json:"id"`
+	PrinterName   string    `json:"printer_name"`
+	ToolheadID    int       `json:"toolhead_id"`
+	SpoolID       int       `json:"spool_id"`
+	FilamentUsage float64   `json:"filament_usage"`
+	PrintStarted  time.Time `json:"print_started"`
+	PrintEnded    time.Time `json:"print_finished"`
+	JobName       string    `json:"job_name"`
+	Severity      string    `json:"severity,omitempty"`
+	Timestamp     time.Time `json:"timestamp,omitempty"`
+	Title         string    `json:"title,omitempty"`
+	Description   string    `json:"description,omitempty"`
+}
+
 // LoadConfig loads configuration from database
 func LoadConfig(bridge *FilamentBridge) (*Config, error) {
 	// Get configuration from database

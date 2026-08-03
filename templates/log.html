@@ -1,0 +1,25 @@
+<div id="log-tab" class="tab-content">
+    <h2>Printer Log</h2>
+
+    <div class="log-list">
+        {{range .LogItems}}
+        <div class="log-item log-{{.Severity}}">
+            <span class="log-time">{{.Timestamp.Format "2006-01-02 15:04:05"}}</span>
+            <span class="log-icon">
+                {{if eq .Severity "error"}}🔴
+                {{else if eq .Severity "warning"}}🟡
+                {{else if eq .Severity "success"}}🟢
+                {{else}}🔵{{end}}
+            </span>
+            <span class="log-message"><strong>{{.Title}}</strong> — {{.Description}}</span>
+        </div>
+        {{else}}
+        <div class="log-empty">
+            No log items registered.
+        </div>
+        {{end}}
+    </div>
+</div>
+<script>
+    console.log("test");
+</script>

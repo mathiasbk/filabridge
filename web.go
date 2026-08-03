@@ -384,6 +384,12 @@ func (ws *WebServer) dashboardHandler(c *gin.Context) {
 	printErrors := ws.bridge.GetPrintErrors()
 	hasPrintErrors := len(printErrors) > 0
 
+	logItems, err := ws.bridge.GetAllPrintLogs()
+	if err != nil {
+		log.Printf("dashboardHandler: failed to load print history: %v", err)
+		logItems = []LogItem{}
+	}
+
 	c.HTML(http.StatusOK, "index.html", gin.H{
 		"Status":            status,
 		"Spools":            spools,
@@ -395,6 +401,7 @@ func (ws *WebServer) dashboardHandler(c *gin.Context) {
 		"SpoolmanConnected": spoolmanConnected,
 		"SpoolmanError":     spoolmanError,
 		"SpoolmanBaseURL":   ws.bridge.config.SpoolmanURL,
+		"LogItems":          logItems,
 	})
 }
 
@@ -1741,3 +1748,58 @@ func (ws *WebServer) deleteLocationHandler(c *gin.Context) {
 
 	c.JSON(http.StatusOK, gin.H{"message": "Location archived successfully"})
 }
+
+// get printhistory
+func (ws *WebServer) getPrintHistoryHandler(c *gin.Context) {
+
+	logitems, err := ws.bridge.GetAllPrintLogs()
+
+	if err != nil {
+		c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
+		return
+	}
+
+	c.JSON(http.StatusOK, gin.H{"LogItems": logitems})
+}
+
+// getPrintersHandler returns all configured printers
+/*
+func (ws *WebServer) getPrintersHandler(c *gin.Context) {
+	printerConfigs, err := ws.bridge.GetAllPrinterConfigs()
+	if err != nil {
+		c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
+		return
+	}
+
+	// Enhance printer configs with toolhead names
+	result := make(map[string]interface{})
+	for printerID, printerConfig := range printerConfigs {
+		printerData := map[string]interface{}{
+			"name":       printerConfig.Name,
+			"model":      printerConfig.Model,
+			"ip_address": printerConfig.IPAddress,
+			"api_key":    printerConfig.APIKey,
+			"toolheads":  printerConfig.Toolheads,
+		}
+
+		// Get toolhead names for this printer
+		toolheadNames, err := ws.bridge.GetAllToolheadNames(printerID)
+		if err == nil {
+			// Build toolhead names map with defaults
+			toolheadNamesMap := make(map[int]string)
+			for toolheadID := 0; toolheadID < printerConfig.Toolheads; toolheadID++ {
+				if name, exists := toolheadNames[toolheadID]; exists {
+					toolheadNamesMap[toolheadID] = name
+				} else {
+					toolheadNamesMap[toolheadID] = fmt.Sprintf("Toolhead %d", toolheadID)
+				}
+			}
+			printerData["toolhead_names"] = toolheadNamesMap
+		}
+
+		result[printerID] = printerData
+	}
+
+	c.JSON(http.StatusOK, gin.H{"printers": result})
+}
+*/

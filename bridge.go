@@ -1368,6 +1368,53 @@ func (b *FilamentBridge) isVirtualPrinterToolheadLocation(name string) bool {
 	return false
 }
 
+// GetAllPrinterConfigs gets all printer configurations
+func (b *FilamentBridge) GetAllPrintLogs() ([]LogItem, error) {
+	rows, err := b.db.Query("SELECT * FROM print_history")
+	if err != nil {
+		return nil, fmt.Errorf("failed to get print history")
+	}
+	defer rows.Close()
+
+	var items []LogItem
+
+	for rows.Next() {
+		var item LogItem
+		if err := rows.Scan(
+			&item.ID,
+			&item.PrinterName,
+			&item.ToolheadID,
+			&item.SpoolID,
+			&item.FilamentUsage,
+			&item.PrintStarted,
+			&item.PrintEnded,
+			&item.JobName,
+		); err != nil {
+			return nil, err
+		}
+
+		item.Severity = "info"
+		item.Timestamp = item.PrintEnded
+		if item.Timestamp.IsZero() {
+			item.Timestamp = item.PrintStarted
+		}
+		if item.JobName == "" {
+			item.Title = "Print log entry"
+		} else {
+			item.Title = item.JobName
+		}
+		item.Description = fmt.Sprintf("Printer %s used %.2f g filament on toolhead %d", item.PrinterName, item.FilamentUsage, item.ToolheadID)
+
+		items = append(items, item)
+	}
+
+	if err := rows.Err(); err != nil {
+		return nil, err
+	}
+
+	return items, nil
+}
+
 // Close closes the database connection
 func (b *FilamentBridge) Close() error {
 	if b.db != nil {
